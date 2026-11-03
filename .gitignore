@@ -1,0 +1,33 @@
+# From the upstream gorilla repository's .gitignore (the BFCL part, re-rooted here).
+build
+dist
+*.egg-info
+**/__pycache__/
+**/*.pyc
+*.log
+.vscode
+.idea
+.DS_Store
+.direnv/
+.venv
+
+# Inference results and leaderboard scores
+result/
+score/
+
+# Environment variables
+.env
+!bfcl_eval/.env.example
+
+# Config file for generating test cases
+test_case_ids_to_generate.json
+!bfcl_eval/test_case_ids_to_generate.json.example
+
+# Multi-turn ground-truth conversation logs
+bfcl_eval/scripts/ground_truth_conversation/
+
+# Lock files
+**/*.lock
+
+# wandb cache
+**/wandb/
