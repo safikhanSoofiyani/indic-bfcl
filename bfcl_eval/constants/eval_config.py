@@ -33,7 +33,21 @@ LOCK_DIR = PROJECT_ROOT / ".file_locks"
 # of ordinary-word and echoed values).
 #
 #     BFCL_DATA_PATH=/path/to/indic-bfcl/data_hi bfcl generate --model X --result-dir result_hi
+#
+# BFCL_LOCALE is normally inferred from that directory name; set it explicitly
+# only if you point BFCL_DATA_PATH somewhere that is not called data_<code>.
 PROMPT_PATH = Path(os.getenv("BFCL_DATA_PATH") or PACKAGE_ROOT / "data")
+
+
+def _infer_locale() -> str:
+    explicit = os.getenv("BFCL_LOCALE")
+    if explicit:
+        return explicit
+    name = PROMPT_PATH.name
+    return name[len("data_"):] if name.startswith("data_") and len(name) > 5 else "en"
+
+
+DATA_LOCALE = _infer_locale()
 MULTI_TURN_FUNC_DOC_PATH = PROMPT_PATH / "multi_turn_func_doc"
 POSSIBLE_ANSWER_PATH = PROMPT_PATH / "possible_answer"
 MEMORY_PREREQ_CONVERSATION_PATH = PROMPT_PATH / "memory_prereq_conversation"
