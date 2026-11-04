@@ -26,7 +26,14 @@ TEST_IDS_TO_GENERATE_PATH = PROJECT_ROOT / "test_case_ids_to_generate.json"
 # Directory that stores all lock files (kept out of the results tree)
 LOCK_DIR = PROJECT_ROOT / ".file_locks"
 
-PROMPT_PATH = PACKAGE_ROOT / "data"
+# MULTILINGUAL: every dataset path below derives from PROMPT_PATH, so pointing
+# this one env var at another data directory swaps the whole benchmark to another
+# language -- e.g. a data_hi/ folder of the Indic BFCL release, which carries its
+# own questions and its own possible_answer/ (the English key, plus the Hindi form
+# of ordinary-word and echoed values).
+#
+#     BFCL_DATA_PATH=/path/to/indic-bfcl/data_hi bfcl generate --model X --result-dir result_hi
+PROMPT_PATH = Path(os.getenv("BFCL_DATA_PATH") or PACKAGE_ROOT / "data")
 MULTI_TURN_FUNC_DOC_PATH = PROMPT_PATH / "multi_turn_func_doc"
 POSSIBLE_ANSWER_PATH = PROMPT_PATH / "possible_answer"
 MEMORY_PREREQ_CONVERSATION_PATH = PROMPT_PATH / "memory_prereq_conversation"
