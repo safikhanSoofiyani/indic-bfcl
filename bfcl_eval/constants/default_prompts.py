@@ -79,6 +79,17 @@ DEFAULT_USER_PROMPT_FOR_ADDITIONAL_FUNCTION_PROMPTING = (
 ADDITIONAL_SYSTEM_PROMPT_FOR_AGENTIC_RESPONSE_FORMAT = """For your final answer to the user, you must respond in this format: {'answer': A short and precise answer to the question, 'context': A brief explanation of how you arrived at this answer or why it is correct}. If you do not know the answer, respond with {'answer': 'I do not know', 'context': 'I do not know'}. If you think the question cannot be properly answered, response with {'answer': 'I cannot answer this question', 'context': A short reason explaining why this question cannot be answered}.
 """
 
+# MULTILINGUAL: appended to the agentic response-format instruction when the
+# active dataset is not English.  memory and web_search are graded by
+# `agentic_checker`, which looks for an English answer string inside the model's
+# free-text reply, so a Hindi answer to a Hindi question would be marked wrong
+# however correct it is.  Pinning the answer field to English keeps that grading
+# byte-identical to the English run; the reasoning and the `context` field are
+# left in whatever language the model prefers.
+ADDITIONAL_SYSTEM_PROMPT_FOR_NON_ENGLISH_AGENTIC = """The user may write to you in a language other than English. Answer them helpfully in that language, but note that the 'answer' field of your final answer must always be written in English, using the standard English spelling of any name, place, title or unit. The 'context' field may be in the user's language.
+"""
+
+
 MEMORY_AGENT_SETTINGS = {
     "student": "You are an academic-support assistant for college student. Remember key personal and academic details discussed across sessions, and draw on them to answer questions or give guidance.",
     "customer": "You are a general customer support assistant for an e-commerce platform. Your task is to understand and remember information that can be used to provide information about user inquiries, preferences, and offer consistent, helpful assistance over multiple interactions.",
