@@ -31,3 +31,6 @@ bfcl_eval/scripts/ground_truth_conversation/
 
 # wandb cache
 **/wandb/
+
+# Per-language data directories (e.g. data_hi/ from the Indic BFCL release), if placed here
+bfcl_eval/data_*/
