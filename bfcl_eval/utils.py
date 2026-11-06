@@ -10,6 +10,7 @@ from typing import Union
 
 from bfcl_eval.constants.category_mapping import *
 from bfcl_eval.constants.default_prompts import (
+    ADDITIONAL_SYSTEM_PROMPT_FOR_NON_ENGLISH_AGENTIC,
     ADDITIONAL_SYSTEM_PROMPT_FOR_AGENTIC_RESPONSE_FORMAT,
     DEFAULT_SYSTEM_PROMPT_FORMAT,
 )
@@ -758,11 +759,16 @@ def process_agentic_test_case(test_cases: list[dict]) -> list[dict]:
     """
     for entry in test_cases:
         if is_agentic(entry["id"]) and not is_memory_prereq(entry["id"]):
+            content = ADDITIONAL_SYSTEM_PROMPT_FOR_AGENTIC_RESPONSE_FORMAT
+            if DATA_LOCALE != "en":
+                # See the note on this constant: agentic rows are scored by
+                # substring against an English answer key.
+                content += "\n" + ADDITIONAL_SYSTEM_PROMPT_FOR_NON_ENGLISH_AGENTIC
             entry["question"][0].insert(
                 0,
                 {
                     "role": "system",
-                    "content": ADDITIONAL_SYSTEM_PROMPT_FOR_AGENTIC_RESPONSE_FORMAT,
+                    "content": content,
                 },
             )
 
