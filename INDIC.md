@@ -16,3 +16,16 @@ here. The other projects in the gorilla repository are not included. On top of i
 | `.gitignore`, `LICENSE` | Upstream's root `.gitignore` (BFCL part) and Apache-2.0 licence, carried over because this folder is now the repository root. Also ignores `bfcl_eval/data_*/`. |
 
 There are no changes to the checkers, to the model handlers, or to how scores are computed.
+
+## Running a language
+
+```bash
+pip install -e .
+huggingface-cli download ai4bharat/indic-bfcl --repo-type dataset --local-dir indic-bfcl
+
+export BFCL_DATA_PATH=$PWD/indic-bfcl/data_hi
+bfcl generate --model <model> --result-dir result_hi
+bfcl evaluate --model <model> --result-dir result_hi --score-dir score_hi
+python indic-bfcl/tools/bfcl_breakdown.py --result-dir result_hi/<model> \
+    --score-dir score_hi/<model> --burden indic-bfcl/burden/hi.json
+```
