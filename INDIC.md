@@ -29,3 +29,6 @@ bfcl evaluate --model <model> --result-dir result_hi --score-dir score_hi
 python indic-bfcl/tools/bfcl_breakdown.py --result-dir result_hi/<model> \
     --score-dir score_hi/<model> --burden indic-bfcl/burden/hi.json
 ```
+
+`data_en` in the release is the English original, restricted to the same rows as the
+translated languages, so English and Indic scores can be compared directly.
