@@ -1,3 +1,7 @@
+> **Indic BFCL.** This is the Berkeley Function Calling Leaderboard from [ShishirPatil/gorilla](https://github.com/ShishirPatil/gorilla) (commit `6ea5797`), set up to run the BFCL v4 translations into 14 Indian languages.
+> Data: [ai4bharat/indic-bfcl](https://huggingface.co/datasets/ai4bharat/indic-bfcl). What changed and how to run a language: [INDIC.md](INDIC.md).
+> The rest of this README is upstream's.
+
 # Berkeley Function Calling Leaderboard (BFCL)
 
 ## Table of Contents
